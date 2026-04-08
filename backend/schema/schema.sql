@@ -3,9 +3,9 @@ CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(50) UNIQUE NOT NULL
 );
-INSERT INTO roles (id, nombre) VALUES (1, 'admin'), (2, 'user');
+INSERT INTO roles (nombre) VALUES ('admin'), ('user');
 
--- 2. USUARIOS (Ajustado a tu HTML)
+-- 2. USUARIOS
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -14,12 +14,11 @@ CREATE TABLE usuarios (
     contraseña VARCHAR(255) NOT NULL,
     rol_id INTEGER REFERENCES roles(id) DEFAULT 2
 );
--- Usuarios de ejemplo (Contraseña: 123)
 INSERT INTO usuarios (nombre, apellido, cedula, contraseña, rol_id) VALUES 
 ('Admin', 'Escuela', '1010', '123', 1),
 ('Facundo', 'Fereira', '2020', '123', 2);
 
--- 3. DIRECCIONES (De la pizarra)
+-- 3. DIRECCIONES
 CREATE TABLE direcciones (
     id SERIAL PRIMARY KEY,
     calle VARCHAR(255),
@@ -32,7 +31,7 @@ CREATE TABLE direcciones (
 INSERT INTO direcciones (calle, av, sector, n_casa, state, id_user) VALUES 
 ('Av. San Martin', '9 de Julio', 'Centro', '150', 'Mendoza', 2);
 
--- 4. MODULOS Y PERMISOS (RBAC de la pizarra)
+-- 4. MODULOS Y PERMISOS (RBAC)
 CREATE TABLE modulos (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
@@ -58,18 +57,22 @@ CREATE TABLE permisos (
 INSERT INTO permisos (id_rm_pagin, puede_crear, puede_leer, puede_editar, puede_borrar) 
 VALUES (1, true, true, true, true);
 
--- 5. LÓGICA DE NEGOCIO
+-- 5. LÓGICA DE NEGOCIO (CORREGIDA)
 CREATE TABLE estudiantes (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    grado VARCHAR(50) NOT NULL
+    grado VARCHAR(50) NOT NULL,
+    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE
 );
-INSERT INTO estudiantes (nombre, grado) VALUES ('Juanito Pérez', '5to Grado');
+-- Insert de ejemplo corregido con usuario_id
+INSERT INTO estudiantes (nombre, grado, usuario_id) VALUES ('Juanito Pérez', '5to Grado', 2);
 
 CREATE TABLE inscripciones (
     id SERIAL PRIMARY KEY,
-    usuario_id INTEGER REFERENCES usuarios(id),
-    estudiante_id INTEGER REFERENCES estudiantes(id),
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    estudiante_id INTEGER REFERENCES estudiantes(id) ON DELETE CASCADE,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- RESTRICCIÓN CLAVE: Evita inscribir al mismo alumno dos veces
+    CONSTRAINT estudiante_unico UNIQUE (estudiante_id)
 );
 INSERT INTO inscripciones (usuario_id, estudiante_id) VALUES (2, 1);

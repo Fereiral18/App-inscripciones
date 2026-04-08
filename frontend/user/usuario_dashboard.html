@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario - Escuela Ejemplo</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>Escuela Ejemplo</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+            <div class="auth-buttons-main">
+                <span id="user-greeting"></span>
+                <button id="logout-btn" class="btn-register" style="cursor:pointer; border:none;">Salir</button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="crear-estudiante">
+        <h2>Crear Estudiante</h2>
+        <form id="estudiante-form">
+            <input type="text" name="nombre" placeholder="Nombre del Estudiante" required>
+            <input type="text" name="grado" placeholder="Grado" required>
+            <button type="submit" class="btn btn-login">Crear Estudiante</button>
+        </form>
+    </section>
+
+    <!-- Sección nueva: Crear Dirección -->
+    <section id="crear-direccion">
+        <h2>Registrar Dirección</h2>
+        <form id="direccion-form">
+            <input type="text" name="calle" placeholder="Calle" required>
+            <input type="text" name="av" placeholder="Avenida">
+            <input type="text" name="sector" placeholder="Sector" required>
+            <input type="text" name="n_casa" placeholder="N° Casa" required>
+            <input type="text" name="state" placeholder="Estado/Provincia" required>
+            <button type="submit" class="btn btn-login">Guardar Dirección</button>
+        </form>
+    </section>
+
+    <section id="mis-direcciones">
+        <h2>Mis Direcciones</h2>
+        <div id="direcciones-container"></div>
+    </section>
+
+    <section id="inscripcion">
+        <h2>Crear Inscripción</h2>
+        <form id="inscripcion-form">
+            <select id="estudiante-select" name="estudiante_id" required>
+                <option value="">Selecciona un estudiante</option>
+            </select>
+            <button type="submit" class="btn btn-login">Inscribir</button>
+        </form>
+    </section>
+
+    <section id="mis-inscripciones">
+        <h2>Mis Inscripciones</h2>
+        <div id="inscripciones-container"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Escuela Ejemplo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="usuario_dashboard.js"></script>
+</body>
+</html>
