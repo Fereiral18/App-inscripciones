@@ -67,8 +67,8 @@ loginForm.addEventListener('submit', async (e) => {
             alert('¡Bienvenido!');
             // Redirección según rol de la DB (1=Admin, 2=User)
             window.location.href = data.usuario.rol_id === 1 
-                ? 'admin_dashboard.html' 
-                : 'usuario_dashboard.html';
+                ? '../admin/admin_dashboard.html' 
+                : '../user/usuario_dashboard.html';
         } else {
             alert('Cédula o contraseña incorrecta');
         }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Admin - Escuela Ejemplo</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>Escuela Ejemplo - Admin</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+            <div class="auth-buttons-main">
+                <span id="user-greeting"></span>
+                <button id="logout-btn" class="btn-register" style="cursor:pointer; border:none;">Salir</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 1. GESTIÓN DE ESTUDIANTES -->
+    <section id="crear-estudiante">
+        <h2>Crear Estudiante</h2>
+        <form id="estudiante-form">
+            <input type="text" name="nombre" placeholder="Nombre del Estudiante" required>
+            <input type="text" name="grado" placeholder="Grado" required>
+            <p><small>Se asignará al Admin por defecto</small></p>
+            <button type="submit" class="btn btn-login">Crear Estudiante</button>
+        </form>
+    </section>
+
+    <!-- 2. GESTIÓN DE INSCRIPCIONES (NUEVA SECCIÓN) -->
+    <section id="inscripciones-lista">
+        <h2>Todas las Inscripciones</h2>
+        <div id="inscripciones-container"></div> <!-- Contenedor para la tabla global -->
+    </section>
+
+    <section id="inscripcion">
+        <h2>Crear Nueva Inscripción</h2>
+        <form id="inscripcion-form">
+            <select id="estudiante-select" name="estudiante_id" required>
+                <option value="">Selecciona un estudiante</option>
+            </select>
+            <button type="submit" class="btn btn-login">Inscribir Estudiante</button>
+        </form>
+    </section>
+
+    <!-- 3. GESTIÓN DE DIRECCIONES -->
+    <section id="direcciones-lista">
+        <h2>Lista Global de Direcciones</h2>
+        <div id="direcciones-container"></div> <!-- Contenedor para la tabla de direcciones -->
+    </section>
+
+    <section id="direccion">
+        <h2>Agregar Dirección</h2>
+        <form id="direccion-form">
+            <input type="text" name="calle" placeholder="Calle" required>
+            <input type="text" name="av" placeholder="Avenida">
+            <input type="text" name="sector" placeholder="Sector" required>
+            <input type="text" name="n_casa" placeholder="Número de Casa" required>
+            <input type="text" name="state" placeholder="Estado/Provincia" required>
+            <button type="submit" class="btn btn-register">Guardar Dirección</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Escuela Ejemplo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="admin_dashboard.js"></script>
+</body>
+</html>
