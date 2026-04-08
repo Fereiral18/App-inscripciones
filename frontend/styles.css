@@ -1,0 +1,340 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    height: 100vh;
+}
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== Header principal ===== */
+header {
+    background-color: #f9f9f9; /* color suave, casi blanco */
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* sombra ligera */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título de la escuela */
+header h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Navegación principal */
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Lista de enlaces */
+header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #555; /* gris suave */
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+header nav ul li a:hover {
+    color: #2575fc; /* azul suave al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+/* Botones de login y registro en el header */
+.auth-buttons-main a {
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+/* Login Button Header */
+.auth-buttons-main .btn-login {
+    background: linear-gradient(135deg, #6c7a89, #95a5a6);
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.auth-buttons-main .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Register Button Header */
+.auth-buttons-main .btn-register {
+    background: linear-gradient(135deg, #a3c4bc, #d5e8d4);
+    color: #333;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.auth-buttons-main .btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Ajuste responsive para móviles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-buttons-main {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+/* Secciones */
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+#inicio {
+    background: linear-gradient(120deg, #e0f7fa, #fff9c4);
+}
+
+#inicio h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+#inicio p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+#inicio button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#inicio button:hover {
+    background-color: #45a049;
+}
+
+#nosotros {
+    background-color: #f9f9f9;
+}
+
+#nosotros h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+#nosotros p {
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#contacto {
+    background-color: #fff;
+}
+
+#contacto h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+#contacto form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+#contacto input, 
+#contacto textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#contacto textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+#contacto button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#contacto button:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    header nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    section {
+        padding: 60px 20px;
+    }
+
+    #inicio h2 {
+        font-size: 28px;
+    }
+
+    #nosotros h2, #contacto h2 {
+        font-size: 28px;
+    }
+}
+
+/* Contenedor general login y register*/
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Caja de login/registro */
+.auth-box {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.auth-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Título */
+.auth-box h2 {
+    margin-bottom: 25px;
+    color: #4CAF50;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+/* Inputs */
+.auth-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.auth-box input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Botones */
+.auth-box button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-box button:hover {
+    background-color: #45a049;
+}
+
+/* Toggle de registro/login */
+.toggle-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.toggle-text span {
+    color: #4CAF50;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Formulario oculto y animación */
+#register-form {
+    display: none;
+}
+
+/* Responsive */
+@media(max-width: 450px) {
+    .auth-box {
+        padding: 30px 20px;
+    }
+
+    .auth-box h2 {
+        font-size: 24px;
+    }
+}

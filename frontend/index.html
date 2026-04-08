@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela Ejemplo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+    <h1>Escuela Ejemplo</h1>
+     <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+       <div class="auth-buttons-main">
+        <a href="/frontend/login/login.html?form=login" class="btn-login">Login</a>
+<a href="/frontend/login/login.html?form=register" class="btn-register">Registro</a>
+    </div>
+    </nav>
+</header>
+
+
+    <section id="inicio">
+        <h2>Bienvenidos a nuestra escuela</h2>
+        <p>Formamos estudiantes preparados para el futuro.</p>
+        <button id="btn-saludo">Haz clic para un saludo</button>
+    </section>
+
+    <section id="nosotros">
+        <h2>Sobre Nosotros</h2>
+        <p>Somos una escuela comprometida con la educación de calidad, la innovación y los valores.</p>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Mensaje" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Escuela Ejemplo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
