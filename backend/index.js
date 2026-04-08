@@ -1,66 +1,70 @@
-const express = require('express');
+const express = require('express'); // 1. Primero requerir express
+const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 const pool = require('./db');
 
-const app = express();
+const app = express(); // 2. Luego inicializar la app
+
+// Middlewares
+app.use(cors());
 app.use(express.json());
+
+// 3. Servir archivos estáticos (IMPORTANTE: Después de 'app')
+// Esto permite que el navegador vea la carpeta frontend
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 const PORT = process.env.PORT || 3000;
 
-// -------------------- RUTAS --------------------
+// --- 1. RUTAS DE USUARIO ---
 
-// Registrar usuario
 app.post('/usuarios', async (req, res) => {
-    const { nombre, email, contraseña, rol } = req.body;
+    const { nombre, apellido, cedula, contraseña } = req.body;
     try {
         const result = await pool.query(
-            `INSERT INTO usuarios (nombre, email, contraseña, rol)
-             VALUES ($1, $2, $3, $4) RETURNING *`,
-            [nombre, email, contraseña, rol || 'user']
+            `INSERT INTO usuarios (nombre, apellido, cedula, contraseña, rol_id) 
+             VALUES ($1, $2, $3, $4, 2) RETURNING id, cedula, nombre`,
+            [nombre, apellido, cedula, contraseña]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error creando usuario' });
+        res.status(500).json({ error: "Error al registrar: " + err.message });
     }
 });
 
-// Login sencillo (sin JWT)
 app.post('/login', async (req, res) => {
-    const { email, contraseña } = req.body;
+    const { cedula, contraseña } = req.body;
     try {
         const result = await pool.query(
-            `SELECT * FROM usuarios WHERE email = $1 AND contraseña = $2`,
-            [email, contraseña]
+            `SELECT u.*, r.nombre as rol_nombre 
+             FROM usuarios u 
+             JOIN roles r ON u.rol_id = r.id 
+             WHERE u.cedula = $1 AND u.contraseña = $2`,
+            [cedula, contraseña]
         );
-
-        if (result.rows.length === 0) {
-            return res.status(401).json({ message: 'Credenciales incorrectas' });
-        }
-
-        res.json({ message: 'Login exitoso', usuario: result.rows[0] });
+        if (result.rows.length === 0) return res.status(401).json({ error: "Cédula o contraseña incorrecta" });
+        res.json({ message: "Login exitoso", usuario: result.rows[0] });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error en login' });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// Crear estudiante
-app.post('/estudiantes', async (req, res) => {
-    const { nombre, grado } = req.body;
+// --- 2. RUTAS DE DIRECCIÓN (Diagrama Pizarra) ---
+app.post('/direcciones', async (req, res) => {
+    const { calle, av, sector, n_casa, state, id_user } = req.body;
     try {
         const result = await pool.query(
-            `INSERT INTO estudiantes (nombre, grado) VALUES ($1, $2) RETURNING *`,
-            [nombre, grado]
+            `INSERT INTO direcciones (calle, av, sector, n_casa, state, id_user) 
+             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [calle, av, sector, n_casa, state, id_user]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error creando estudiante' });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// Crear inscripción (usuario inscribe estudiante)
+// --- 3. RUTAS DE NEGOCIO ---
 app.post('/inscripciones', async (req, res) => {
     const { usuario_id, estudiante_id } = req.body;
     try {
@@ -70,33 +74,25 @@ app.post('/inscripciones', async (req, res) => {
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error creando inscripción' });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// Obtener todas las inscripciones (solo admin)
-app.get('/inscripciones', async (req, res) => {
-    const role = req.headers['role']; // simple control de acceso
-    if (role !== 'admin') {
-        return res.status(403).json({ message: 'Acceso denegado' });
-    }
-
+app.get('/admin/inscripciones', async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT i.id, u.nombre as usuario, e.nombre as estudiante, i.fecha_inscripcion
+            SELECT i.id, u.nombre, u.apellido, e.nombre as estudiante, e.grado, d.sector
             FROM inscripciones i
             JOIN usuarios u ON i.usuario_id = u.id
             JOIN estudiantes e ON i.estudiante_id = e.id
+            LEFT JOIN direcciones d ON u.id = d.id_user
         `);
         res.json(result.rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error del servidor' });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// -------------------- SERVIDOR --------------------
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
