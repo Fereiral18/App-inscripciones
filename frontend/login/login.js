@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000/api';
 
 // --- 1. TU LÓGICA VISUAL (Está perfecta) ---
 const urlParams = new URLSearchParams(window.location.search);
